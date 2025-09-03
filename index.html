@@ -1,376 +1,532 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Blue Lock - Liga Neo Egoísta</title>
+              <!DOCTYPE html>
+              <html lang="pt-br">
+              <head>
+                <meta charset="UTF-8" />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <title>Blue Lock - Liga Neo Egoísta</title>
 
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-  <!-- Bootstrap Icons -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+                <!-- Bootstrap -->
+                <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+                <!-- Icons -->
+                <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+                <!-- Fonts -->
+                <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <style>
-    body {
-      font-family: 'Bebas Neue', sans-serif;
-      background-color: #e6f2ff;
-      margin: 0;
-      padding: 0;
-      transition: background-color 0.3s, color 0.3s;
-    }
+                <style>
+                  /* ================= THEME TOKENS ================= */
+                  :root{
+                    --bg: #eef4ff;
+                    --bg-hero: radial-gradient(1200px 600px at 20% -10%, #8ec5ff33, transparent 70%), radial-gradient(1200px 600px at 120% -20%, #b1ffd633, transparent 70%), linear-gradient(180deg, #f7fbff 0%, #eef4ff 100%);
+                    --text: #0b1220;
+                    --muted: #52607a;
+                    --card: #ffffff;
+                    --card-border: #e7edf8;
+                    --accent: #0d6efd;
+                    --accent-2: #22c55e;
+                    --table-header: #0b1220;
+                    --table-header-text:#ffffff;
+                    --link: #0a58ca;
+                    --shadow: 0 8px 24px rgba(2, 6, 23, .06);
+                  }
+                  .dark-mode:root,
+                  body.dark-mode{
+                    --bg: #0b1220;
+                    --bg-hero: radial-gradient(1200px 600px at 20% -10%, #1b2a4a66, transparent 70%), radial-gradient(1200px 600px at 120% -20%, #183c2e66, transparent 70%), linear-gradient(180deg, #0b1220 0%, #0b1220 100%);
+                    --text: #f3f6fc;
+                    --muted: #b8c4d9;
+                    --card: #121a2b;
+                    --card-border: #1d2841;
+                    --accent: #60a5fa;
+                    --accent-2: #34d399;
+                    --table-header: #121a2b;
+                    --table-header-text:#e6eefc;
+                    --link: #8ab4ff;
+                    --shadow: 0 8px 24px rgba(0,0,0,.35);
+                  }
 
-    .dark-mode {
-      background-color: #121212;
-      color: #f5f5f5;
-    }
+                  /* ================= BASE ================= */
+                  html,body{
+                    height:100%;
+                  }
+                  body{
+                    background: var(--bg);
+                    color: var(--text);
+                    font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+                    line-height: 1.6;
+                    transition: background .25s ease, color .25s ease;
+                  }
+                  h1,h2,h3,.brand{
+                    font-family: 'Bebas Neue', cursive;
+                    letter-spacing: .5px;
+                  }
+                  a{ color: var(--link); }
+                  .container-narrow{ max-width: 1100px; }
 
-    .dark-mode .navbar {
-      background-color: #222 !important;
-    }
+                  /* ================= NAVBAR ================= */
+                  .navbar{
+                    background: rgba(12, 23, 41, .92);
+                    backdrop-filter: blur(6px);
+                    border-bottom: 1px solid #0f203a;
+                  }
+                  .navbar .navbar-brand{
+                    font-family: 'Bebas Neue', cursive;
+                    font-size: 1.6rem;
+                    letter-spacing: .6px;
+                  }
+                  .theme-btn{
+                    border-radius: 999px;
+                    display: inline-flex;
+                    align-items: center;
+                    gap: .5rem;
+                  }
 
-    .dark-mode .card,
-    .dark-mode .table {
-      background-color: #1e1e1e;
-      color: white;
-    }
+                  /* ================= HERO ================= */
+                  .hero{
+                    background: var(--bg-hero);
+                    border-bottom: 1px solid var(--card-border);
+                  }
+                  .hero .card{
+                    background: var(--card);
+                    border: 1px solid var(--card-border);
+                    box-shadow: var(--shadow);
+                  }
+                  .hero-badge{
+                    display:inline-flex; align-items:center; gap:.5rem;
+                    background: rgba(13,110,253,.1);
+                    color: var(--accent);
+                    border:1px solid rgba(13,110,253,.2);
+                    padding:.25rem .6rem; border-radius:999px; font-weight:600; font-size:.9rem;
+                  }
 
-    .dark-mode th {
-      background-color: #333 !important;
-    }
+                  /* ================= SECTIONS / CARDS ================= */
+                  .section{
+                    margin-top: 2.5rem;
+                  }
+                  .elevated{
+                    background: var(--card);
+                    border: 1px solid var(--card-border);
+                    border-radius: 16px;
+                    box-shadow: var(--shadow);
+                    overflow: hidden;
+                  }
+                  .section-title{
+                    display:flex; align-items:center; gap:.6rem; margin-bottom: .75rem;
+                  }
+                  .section-sub{
+                    color: var(--muted); margin-bottom: 1rem;
+                  }
 
-    .dark-mode a {
-      color: #66b2ff;
-    }
+                  /* ================= TABLE ================= */
+                  .table-wrap{
+                    border: 1px solid var(--card-border);
+                    border-radius: 14px;
+                    overflow: hidden;
+                    background: var(--card);
+                    box-shadow: var(--shadow);
+                  }
+                  table thead th{
+                    background: var(--table-header) !important;
+                    color: var(--table-header-text) !important;
+                    border-color: var(--card-border) !important;
+                  }
+                  table tbody tr{
+                    transition: background .2s ease;
+                  }
+                  table tbody tr:hover{
+                    background: rgba(13,110,253,.06);
+                  }
 
-    .btn, .card, .form-select, .nav-link {
-      transition: transform 0.2s ease;
-    }
+                  /* ================= TIMELINE ================= */
+                  .timeline{
+                    list-style:none; margin:0; padding-left: 22px;
+                    border-left: 3px solid rgba(13,110,253,.35);
+                  }
+                  .timeline li{
+                    position:relative; margin: 10px 0; color: var(--text);
+                  }
+                  .timeline li::before{
+                    content:"⚽"; position:absolute; left:-1.2em;
+                  }
 
-    .btn:hover, .card:hover, .form-select:hover, .nav-link:hover {
-      transform: scale(1.02);
-    }
+                  /* ================= UTIL: HOVER/FOCUS ================= */
+                  .btn, .card, .form-select, .nav-link { transition: transform .16s ease, background .2s ease, border-color .2s ease, color .2s ease; }
+                  .btn:hover, .card:hover, .form-select:hover, .nav-link:hover { transform: translateY(-2px); }
 
-    .timeline {
-      list-style: none;
-      padding-left: 20px;
-      border-left: 3px solid #333;
-    }
+                  /* ================= MEDIA ================= */
+                  .cover{
+                    max-width:420px; border-radius: 14px; border:1px solid var(--card-border); box-shadow: var(--shadow);
+                  }
 
-    .timeline li {
-      margin: 10px 0;
-      position: relative;
-    }
+                  /* ================= FOOTER ================= */
+                  footer{
+                    color: var(--muted);
+                    border-top:1px solid var(--card-border);
+                    padding: 28px 0;
+                    margin-top: 48px;
+                    text-align:center;
+                  }
+                </style>
+              </head>
+              <body>
+                <!-- NAVBAR -->
+                <nav class="navbar navbar-dark sticky-top">
+                  <div class="container container-narrow d-flex align-items-center justify-content-between py-2">
+                    <a class="navbar-brand d-flex align-items-center gap-2 text-white brand" href="#">
+                      <i class="bi bi-lightning-charge-fill"></i> Blue Lock
+                    </a>
+                    <div class="d-flex align-items-center gap-2">
+                      <a href="personagens.html" class="btn btn-outline-light btn-sm">Personagens</a>
+                      <button id="themeToggle" class="btn btn-outline-light btn-sm theme-btn" type="button">
+                        <i class="bi bi-moon-stars"></i> <span>Modo escuro</span>
+                      </button>
+                    </div>
+                  </div>
+                </nav>
 
-    .timeline li::before {
-      content: "⚽";
-      position: absolute;
-      left: -1.2em;
-    }
-  </style>
-</head>
-<body>
-  <nav class="navbar navbar-dark bg-dark sticky-top px-3">
-    <span class="navbar-brand"><i class="bi bi-lightning-charge"></i> Blue Lock</span>
-    <button class="btn btn-outline-light" onclick="document.body.classList.toggle('dark-mode')">
-      <i class="bi bi-moon-stars"></i> Tema
-    </button>
-  </nav>
+                <!-- HERO -->
+                <header class="hero py-5">
+                  <div class="container container-narrow">
+                    <div class="row g-4 align-items-center">
+                      <div class="col-lg-7">
+                        <span class="hero-badge mb-2"><i class="bi bi-trophy-fill"></i> Liga Neo Egoísta</span>
+                        <h1 class="display-5 mb-2">Portal Blue Lock</h1>
+                        <p class="section-sub mb-3">
+                          Resumo interativo dos principais jogos, personagens e momentos do mangá <strong>Blue Lock</strong>.
+                          Explore resultados, artilharia, simule partidas e monte o seu <em>Time dos Sonhos</em>.
+                        </p>
+                        <ul class="mb-4 text-secondary">
+                          <li>📊 Tabela e estatísticas resumidas;</li>
+                          <li>⚽ Ranking de artilheiros com medalhas;</li>
+                          <li>🎮 Simulador de partidas simples;</li>
+                          <li>🌟 Salve seu time ideal no navegador.</li>
+                        </ul>
+                        <a href="#tabela" class="btn btn-primary me-2"><i class="bi bi-list-check"></i> Ver Tabela</a>
+                        <a href="#simulador" class="btn btn-outline-primary"><i class="bi bi-controller"></i> Simular Jogo</a>
+                      </div>
+                      <div class="col-lg-5 text-center">
+                        <img class="img-fluid cover" src="https://upload.wikimedia.org/wikipedia/pt/1/1c/Blue_Lock_-_capa_do_volume_1.jpg" alt="Capa Volume 1 Blue Lock">
+                      </div>
+                    </div>
+                  </div>
+                </header>
 
-  <div class="container my-4">
-    <h1 class="text-center">Blue Lock</h1>
-    <p>
-      Bem-vindo ao Portal Blue Lock – Liga Neo Egoísta! ⚡
-      Aqui você encontra um resumo interativo dos principais jogos, personagens e momentos do mangá Blue Lock, a obra criada por Muneyuki Kaneshiro (roteiro) e Yusuke Nomura (arte).
+                <main class="container container-narrow">
 
-      A história acompanha o ousado projeto Blue Lock, que busca moldar o melhor atacante do mundo através de treinos intensos, rivalidades acirradas e partidas épicas.
+                  <!-- ==================== TABELA DE JOGOS ==================== -->
+                  <section id="tabela" class="section">
+                    <div class="section-title">
+                      <i class="bi bi-trophy fs-3 text-primary"></i>
+                      <h2 class="m-0">Liga Neo Egoísta – Tabela de Jogos</h2>
+                    </div>
+                    <p class="section-sub">Clique/arraste horizontalmente no celular para ver toda a tabela.</p>
 
-      Atualmente, o enredo está no finalizando o arco da Liga Neo Egoísta, onde jogadores japoneses se juntam a clubes europeus de elite como Bastard Munique, Paris X Gen, Manshine City, FC Barcha e Ubers.
+                    <div class="table-wrap">
+                      <div class="table-responsive">
+                        <table class="table table-hover align-middle m-0">
+                          <thead>
+                            <tr>
+                              <th>Partida</th>
+                              <th>Times</th>
+                              <th>Resultado</th>
+                              <th>Goleadores / Assistências</th>
+                              <th>Capítulos</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>1</td>
+                              <td>Bastard Munique vs FC Barcha</td>
+                              <td><span class="badge text-bg-success">3 - 2</span></td>
+                              <td>Kaiser (Ness), Noa (Kaiser), Kunigami (Isagi) | Bachira (Otoya), Lavinho (Bachira)</td>
+                              <td>159 – 167</td>
+                            </tr>
+                            <tr>
+                              <td>2</td>
+                              <td>Ubers vs Paris X Gen</td>
+                              <td><span class="badge text-bg-warning">2 - 3</span></td>
+                              <td>Rin, Shido, Rin | <em>Sem dados dos gols da Ubers</em></td>
+                              <td>169</td>
+                            </tr>
+                            <tr>
+                              <td>3</td>
+                              <td>Bastard Munique vs Manshine City</td>
+                              <td><span class="badge text-bg-success">3 - 2</span></td>
+                              <td>Kaiser (Ness), Kunigami (Isagi), Yukimiya (Isagi) | Chigiri, Nagi (Reo)</td>
+                              <td>174 – 202</td>
+                            </tr>
+                            <tr>
+                              <td>4</td>
+                              <td>FC Barcha vs Ubers</td>
+                              <td><span class="badge text-bg-danger">1 - 3</span></td>
+                              <td>Bachira | Baro (3 – Sendo, Niko)</td>
+                              <td>204</td>
+                            </tr>
+                            <tr>
+                              <td>5</td>
+                              <td>Bastard Munique vs Ubers</td>
+                              <td><span class="badge text-bg-success">3 - 2</span></td>
+                              <td>Isagi (Kurona, Hiori), Kaiser (Isagi) | Baro (2 – Sendo, Niko)</td>
+                              <td>210 – 238</td>
+                            </tr>
+                            <tr>
+                              <td>6</td>
+                              <td>Manshine City vs Paris X Gen</td>
+                              <td><span class="badge text-bg-danger">1 - 3</span></td>
+                              <td>Chigiri | Rin (3)</td>
+                              <td>239</td>
+                            </tr>
+                            <tr>
+                              <td>7</td>
+                              <td>FC Barcha vs Paris X Gen</td>
+                              <td><span class="badge text-bg-warning">2 - 3</span></td>
+                              <td>Bachira (Lavinho), Otoya (Lavinho) | Rin (Charles), Shido (2 – Charles)</td>
+                              <td>244 – 245</td>
+                            </tr>
+                            <tr>
+                              <td>8</td>
+                              <td>Manshine City vs Ubers</td>
+                              <td><span class="badge text-bg-danger">1 - 3</span></td>
+                              <td>Sem dados | Baro (2), Sendo</td>
+                              <td>244 – 245</td>
+                            </tr>
+                            <tr>
+                              <td>9</td>
+                              <td>FC Barcha vs Manshine City</td>
+                              <td><span class="badge text-bg-success">3 - 2</span></td>
+                              <td>Bachira (2 – Lavinho), Otoya (Bachira) | Chigiri (Reo), Reo (Chris)</td>
+                              <td>295 – 298</td>
+                            </tr>
+                            <tr>
+                              <td>10</td>
+                              <td>Bastard Munique vs Paris X Gen</td>
+                              <td><span class="badge text-bg-success">3 - 2</span></td>
+                              <td>Isagi (2 – Kunigami, Ness), Kaiser (Kiyora) | Shido (Charles), Rin (Charles)</td>
+                              <td>249 – 293</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </section>
 
-      Aqui no site você pode conferir:
+                  <!-- ==================== TIME DOS SONHOS ==================== -->
+                  <section id="time" class="section">
+                    <div class="row g-4 align-items-stretch">
+                      <div class="col-lg-6">
+                        <div class="p-4 elevated h-100">
+                          <div class="section-title">
+                            <i class="bi bi-stars fs-3 text-warning"></i>
+                            <h2 class="m-0">Monte seu Time dos Sonhos</h2>
+                          </div>
+                          <p class="section-sub">Escolha as peças e salve. Seu time fica guardado no navegador.</p>
 
-      📊 Resultados e estatísticas das partidas
+                          <form id="dream-team-form" class="row g-3">
+                            <div class="col-md-4">
+                              <label class="form-label">Atacante</label>
+                              <select class="form-select" name="atacante">
+                                <option>Isagi</option><option>Shidou</option><option>Barou</option><option>Rin</option>
+                              </select>
+                            </div>
+                            <div class="col-md-4">
+                              <label class="form-label">Meia</label>
+                              <select class="form-select" name="meia">
+                                <option>Reo</option><option>Bachira</option><option>Sae Itoshi</option>
+                              </select>
+                            </div>
+                            <div class="col-md-4">
+                              <label class="form-label">Defensor</label>
+                              <select class="form-select" name="defensor">
+                                <option>Aiku</option><option>Kurona</option><option>Aryu</option>
+                              </select>
+                            </div>
+                            <div class="col-12 d-flex gap-2">
+                              <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i> Salvar Time</button>
+                              <button id="clearTeam" type="button" class="btn btn-outline-secondary"><i class="bi bi-trash3"></i> Limpar</button>
+                            </div>
+                          </form>
+                          <p id="resultado-time" class="mt-3 fw-semibold"></p>
+                        </div>
+                      </div>
 
-      ⚽ Ranking de artilheiros
+                      <!-- ==================== SIMULADOR DE PARTIDAS ==================== -->
+                      <div class="col-lg-6" id="simulador">
+                        <div class="p-4 elevated h-100">
+                          <div class="section-title">
+                            <i class="bi bi-controller fs-3 text-success"></i>
+                            <h2 class="m-0">Simulador de Partidas</h2>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6">
+                              <label class="form-label">Time 1</label>
+                              <select id="time1" class="form-select">
+                                <option>Bastard Munique</option>
+                                <option>Paris X Gen</option>
+                                <option>Ubers</option>
+                                <option>FC Barcha</option>
+                                <option>Manshine City</option>
+                              </select>
+                            </div>
+                            <div class="col-md-6">
+                              <label class="form-label">Time 2</label>
+                              <select id="time2" class="form-select">
+                                <option>Bastard Munique</option>
+                                <option>Paris X Gen</option>
+                                <option>Ubers</option>
+                                <option>FC Barcha</option>
+                                <option>Manshine City</option>
+                              </select>
+                            </div>
+                          </div>
+                          <button class="btn btn-success mt-3" onclick="simular()"><i class="bi bi-play-circle"></i> Simular</button>
+                          <p id="resultado-jogo" class="mt-2 fw-bold"></p>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
 
-      🏆 Simulador de jogos
+                  <!-- ==================== RANKING DE ARTILHEIROS ==================== -->
+                  <section id="ranking" class="section">
+                    <div class="p-4 elevated">
+                      <div class="section-title">
+                        <i class="bi bi-list-ol fs-3 text-danger"></i>
+                        <h2 class="m-0">Ranking de Artilheiros</h2>
+                      </div>
+                      <p class="section-sub">Top jogadores por gols marcados.</p>
+                      <ol id="ranking-artilheiros" class="mb-0"></ol>
+                    </div>
+                  </section>
 
-      🌟 Monte seu próprio Time dos Sonhos
-    </p>
-    <img class="img-fluid rounded d-block mx-auto mb-4" style="max-width: 400px;"
-         src="https://upload.wikimedia.org/wikipedia/pt/1/1c/Blue_Lock_-_capa_do_volume_1.jpg"
-         alt="Capa Volume 1 Blue Lock" />
+                  <!-- ==================== LINHA DO TEMPO ==================== -->
+                  <section class="section">
+                    <div class="p-4 elevated">
+                      <div class="section-title">
+                        <i class="bi bi-clock-history fs-3 text-info"></i>
+                        <h2 class="m-0">Linha do Tempo da Liga</h2>
+                      </div>
+                      <ul class="timeline">
+                        <li><strong>Cap. 159–167:</strong> Bastard vs FC Barcha</li>
+                        <li><strong>Cap. 169:</strong> Ubers vs Paris X Gen</li>
+                        <li><strong>Cap. 174–202:</strong> Bastard vs Manshine</li>
+                        <li><strong>Cap. 204:</strong> FC Barcha vs Ubers</li>
+                        <li><strong>Cap. 210–238:</strong> Bastard vs Ubers</li>
+                      </ul>
+                    </div>
+                  </section>
 
-    <!-- ==================== TABELA DE JOGOS ==================== -->
-    <h2 class="mt-5"><i class="bi bi-trophy"></i> Liga Neo Egoísta – Tabela de Jogos</h2>
-    <div class="table-responsive">
-      <table class="table table-bordered table-hover mt-3">
-        <thead class="table-dark">
-          <tr>
-            <th>Partida</th>
-            <th>Times</th>
-            <th>Resultado</th>
-            <th>Goleadores / Assistências</th>
-            <th>Capítulos</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>Bastard Munique vs FC Barcha</td>
-            <td>3 - 2</td>
-            <td>Kaiser (Ness), Noa (Kaiser), Kunigami (Isagi) | Bachira (Otoya), Lavinho (Bachira)</td>
-            <td>159 – 167</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Ubers vs Paris X Gen</td>
-            <td>2 - 3</td>
-            <td>Rin, Shido, Rin | *Sem dados dos gols da Ubers*</td>
-            <td>169</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Bastard Munique vs Manshine City</td>
-            <td>3 - 2</td>
-            <td>Kaiser (Ness), Kunigami (Isagi), Yukimiya (Isagi) | Chigiri, Nagi (Reo)</td>
-            <td>174 – 202</td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>FC Barcha vs Ubers</td>
-            <td>1 - 3</td>
-            <td>Bachira | Baro (3 – Sendo, Niko)</td>
-            <td>204</td>
-          </tr>
-          <tr>
-            <td>5</td>
-            <td>Bastard Munique vs Ubers</td>
-            <td>3 - 2</td>
-            <td>Isagi (Kurona, Hiori), Kaiser (Isagi) | Baro (2 – Sendo, Niko)</td>
-            <td>210 – 238</td>
-          </tr>
-          <tr>
-            <td>6</td>
-            <td>Manshine City vs Paris X Gen</td>
-            <td>1 - 3</td>
-            <td>Chigiri | Rin (3)</td>
-            <td>239</td>
-          </tr>
-          <tr>
-            <td>7</td>
-            <td>FC Barcha vs Paris X Gen</td>
-            <td>2 - 3</td>
-            <td>Bachira (Lavinho), Otoya (Lavinho) | Rin (Charles), Shido (2 – Charles)</td>
-            <td>244 – 245</td>
-          </tr>
-          <tr>
-            <td>8</td>
-            <td>Manshine City vs Ubers</td>
-            <td>1 - 3</td>
-            <td>Sem dados | Baro (2), Sendo</td>
-            <td>244 – 245</td>
-          </tr>
-          <tr>
-            <td>9</td>
-            <td>FC Barcha vs Manshine City</td>
-            <td>3 - 2</td>
-            <td>Bachira (2 – Lavinho), Otoya (Bachira) | Chigiri (Reo), Reo (Chris)</td>
-            <td>295 – 298</td>
-          </tr>
-          <tr>
-            <td>10</td>
-            <td>Bastard Munique vs Paris X Gen</td>
-            <td>3 - 2</td>
-            <td>Isagi (2 – Kunigami, Ness), Kaiser (Kiyora) | Shido (Charles), Rin (Charles)</td>
-            <td>249 – 293</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+                  <!-- ==================== VÍDEO ==================== -->
+                  <section class="section">
+                    <div class="p-4 elevated">
+                      <div class="section-title">
+                        <i class="bi bi-play-btn fs-3 text-primary"></i>
+                        <h2 class="m-0">Vídeo completo dublado</h2>
+                      </div>
+                      <div class="ratio ratio-16x9">
+                        <iframe src="https://www.youtube.com/embed/rqM3H69c_c8"
+                                title="Blue Lock Dublado"
+                                allowfullscreen
+                                referrerpolicy="strict-origin-when-cross-origin"></iframe>
+                      </div>
+                    </div>
+                  </section>
 
-    <!-- ==================== TIME DOS SONHOS ==================== -->
-    <h2 class="mt-5"><i class="bi bi-stars"></i> Monte seu Time dos Sonhos</h2>
-    <form id="dream-team-form" class="row g-3">
-      <div class="col-md-4">
-        <label class="form-label">Atacante</label>
-        <select class="form-select" name="atacante">
-          <option>Isagi</option><option>Shidou</option><option>Barou</option><option>Rin</option>
-        </select>
-      </div>
-      <div class="col-md-4">
-        <label class="form-label">Meia</label>
-        <select class="form-select" name="meia">
-          <option>Reo</option><option>Bachira</option><option>Sae Itoshi</option>
-        </select>
-      </div>
-      <div class="col-md-4">
-        <label class="form-label">Defensor</label>
-        <select class="form-select" name="defensor">
-          <option>Aiku</option><option>Kurona</option><option>Aryu</option>
-        </select>
-      </div>
-      <div class="col-12">
-        <button type="submit" class="btn btn-primary">Salvar Time</button>
-      </div>
-    </form>
-    <p id="resultado-time" class="mt-3"></p>
+                </main>
 
-    <!-- ==================== SIMULADOR DE PARTIDAS ==================== -->
-    <h2 class="mt-5"><i class="bi bi-controller"></i> Simulador de Partidas</h2>
-    <div class="row">
-      <div class="col-md-6">
-        <label class="form-label">Time 1</label>
-        <select id="time1" class="form-select">
-          <option>Bastard Munique</option>
-          <option>Paris X Gen</option>
-          <option>Ubers</option>
-          <option>FC Barcha</option>
-        </select>
-      </div>
-      <div class="col-md-6">
-        <label class="form-label">Time 2</label>
-        <select id="time2" class="form-select">
-          <option>Bastard Munique</option>
-          <option>Paris X Gen</option>
-          <option>Ubers</option>
-          <option>FC Barcha</option>
-        </select>
-      </div>
-    </div>
-    <button class="btn btn-success mt-3" onclick="simular()">Simular</button>
-    <p id="resultado-jogo" class="mt-2 fw-bold"></p>
+                <footer>
+                  <div class="container container-narrow">
+                    <small>Feito por Marcos David  — projeto sem fins comerciais. • <a href="personagens.html">Ver personagens</a></small>
+                  </div>
+                </footer>
 
-    <!-- ==================== RANKING DE ARTILHEIROS ==================== -->
-    <h2 class="mt-5"><i class="bi bi-list-ol"></i> Ranking de Artilheiros</h2>
-    <ol id="ranking-artilheiros" class="mb-4"></ol>
+                <!-- Bootstrap JS -->
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- ==================== LINHA DO TEMPO ==================== -->
-    <h2 class="mt-5"><i class="bi bi-clock-history"></i> Linha do Tempo da Liga</h2>
-    <ul class="timeline">
-      <li><strong>Cap. 159–167:</strong> Bastard vs FC Barcha</li>
-      <li><strong>Cap. 169:</strong> Ubers vs Paris X Gen</li>
-      <li><strong>Cap. 174–202:</strong> Bastard vs Manshine</li>
-      <li><strong>Cap. 204:</strong> FC Barcha vs Ubers</li>
-      <li><strong>Cap. 210–238:</strong> Bastard vs Ubers</li>
-    </ul>
+                <!-- ==================== SCRIPTS ==================== -->
+                <script>
+                  // ======= THEME TOGGLE (com persistência) =======
+                  const themeBtn = document.getElementById('themeToggle');
+                  const themeLabel = themeBtn.querySelector('span');
+                  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                  const storedTheme = localStorage.getItem('bluelock-theme');
 
-    <!-- ==================== VÍDEO ==================== -->
-    <h2 class="mt-5"><i class="bi bi-play-btn"></i> Vídeo completo de Blue Lock dublado do criador de conteúdo Crow </h2>
-    <div class="ratio ratio-16x9 mb-5">
-      <iframe src="https://www.youtube.com/embed/rqM3H69c_c8"
-              title="Blue Lock Dublado"
-              allowfullscreen></iframe>
-    </div>
-  </div>
+                  function applyTheme(mode){
+                    document.body.classList.toggle('dark-mode', mode === 'dark');
+                    themeLabel.textContent = mode === 'dark' ? 'Modo claro' : 'Modo escuro';
+                    themeBtn.firstElementChild.className = mode === 'dark' ? 'bi bi-sun' : 'bi bi-moon-stars';
+                    localStorage.setItem('bluelock-theme', mode);
+                  }
+                  applyTheme(storedTheme ? storedTheme : (prefersDark ? 'dark' : 'light'));
+                  themeBtn.addEventListener('click', ()=>{
+                    const now = document.body.classList.contains('dark-mode') ? 'light' : 'dark';
+                    applyTheme(now);
+                  });
 
-  <!-- ==================== SCRIPTS ==================== -->
-  <script>
-    // ==== Salvar e recuperar Time dos Sonhos ====
-    const form = document.getElementById("dream-team-form");
-    const resultado = document.getElementById("resultado-time");
+                  // ======= Salvar e recuperar Time dos Sonhos =======
+                  const form = document.getElementById("dream-team-form");
+                  const resultado = document.getElementById("resultado-time");
+                  const clearTeam = document.getElementById("clearTeam");
 
-    form.addEventListener("submit", function(e) {
-      e.preventDefault();
-      const data = new FormData(form);
-      const atacante = data.get("atacante");
-      const meia = data.get("meia");
-      const defensor = data.get("defensor");
-      const time = { atacante, meia, defensor };
+                  form.addEventListener("submit", function(e) {
+                    e.preventDefault();
+                    const data = new FormData(form);
+                    const atacante = data.get("atacante");
+                    const meia = data.get("meia");
+                    const defensor = data.get("defensor");
+                    const time = { atacante, meia, defensor };
+                    localStorage.setItem("dreamTeam", JSON.stringify(time));
+                    resultado.textContent = `Seu Time dos Sonhos: ${atacante} (ATA), ${meia} (MEI), ${defensor} (DEF)`;
+                  });
 
-      localStorage.setItem("dreamTeam", JSON.stringify(time));
+                  clearTeam.addEventListener('click', ()=>{
+                    localStorage.removeItem('dreamTeam');
+                    resultado.textContent = '';
+                    form.reset();
+                  });
 
-      resultado.textContent = `Seu Time dos Sonhos: ${atacante} (ATA), ${meia} (MEI), ${defensor} (DEF)`;
-    });
+                  window.addEventListener("load", () => {
+                    const saved = localStorage.getItem("dreamTeam");
+                    if (saved) {
+                      const time = JSON.parse(saved);
+                      resultado.textContent = `Seu Time dos Sonhos: ${time.atacante} (ATA), ${time.meia} (MEI), ${time.defensor} (DEF)`;
+                    }
+                  });
 
-    window.addEventListener("load", () => {
-      const saved = localStorage.getItem("dreamTeam");
-      if (saved) {
-        const time = JSON.parse(saved);
-        resultado.textContent = `Seu Time dos Sonhos: ${time.atacante} (ATA), ${time.meia} (MEI), ${time.defensor} (DEF)`;
-      }
-    });
+                  // ======= Simulador =======
+                  function simular() {
+                    const t1 = document.getElementById("time1").value;
+                    const t2 = document.getElementById("time2").value;
+                    if (t1 === t2) {
+                      document.getElementById("resultado-jogo").textContent = "Escolha dois times diferentes.";
+                      return;
+                    }
+                    const g1 = Math.floor(Math.random() * 4);
+                    const g2 = Math.floor(Math.random() * 4);
+                    document.getElementById("resultado-jogo").textContent = `${t1} ${g1} x ${g2} ${t2}`;
+                  }
+                  window.simular = simular; // mantém a função global
 
-    // ==== Simulador ====
-    function simular() {
-      const t1 = document.getElementById("time1").value;
-      const t2 = document.getElementById("time2").value;
-
-      if (t1 === t2) {
-        document.getElementById("resultado-jogo").textContent = "Escolha dois times diferentes.";
-        return;
-      }
-
-      const g1 = Math.floor(Math.random() * 4);
-      const g2 = Math.floor(Math.random() * 4);
-      document.getElementById("resultado-jogo").textContent = `${t1} ${g1} x ${g2} ${t2}`;
-    }
-
-    // ==== Ranking com medalhas ====
-    const artilheiros = [
-      { nome: "Barou", gols: 7 },
-      { nome: "Rin", gols: 7 },
-      { nome: "Bachira", gols: 5 },
-      { nome: "Isagi", gols: 4 },
-      { nome: "Shidou", gols: 3 }
-    ];
-
-    const ranking = document.getElementById("ranking-artilheiros");
-    artilheiros.sort((a, b) => b.gols - a.gols).forEach((jogador, i) => {
-      const li = document.createElement("li");
-      let medalha = "";
-      if (i === 0) medalha = "🥇";
-      else if (i === 1) medalha = "🥈";
-      else if (i === 2) medalha = "🥉";
-      li.textContent = `${medalha} ${jogador.nome} - ${jogador.gols} gols`;
-      ranking.appendChild(li);
-    });
-  </script>
-
-  
-
-      <!-- ==================== COMENTÁRIOS DOS FÃS ==================== -->
-      <h2 class="mt-5"><i class="bi bi-chat-dots"></i> Comentários dos Fãs</h2>
-      <textarea id="comentario" class="form-control mb-2" rows="3" placeholder="Escreva seu comentário..."></textarea>
-      <button class="btn btn-primary" onclick="salvarComentario()">Enviar</button>
-      <ul id="lista-comentarios" class="list-group mt-3"></ul>
-
-      <!-- (resto do seu conteúdo: time dos sonhos, simulador, ranking, timeline, vídeo...) -->
-    </div>
-
-    <!-- ==================== SCRIPTS ==================== -->
-    <script>
-     
-
-      // ==== COMENTÁRIOS ====
-      function salvarComentario() {
-        const input = document.getElementById("comentario");
-        const texto = input.value.trim();
-        if (texto) {
-          let comentarios = JSON.parse(localStorage.getItem("comentarios")) || [];
-          comentarios.push(texto);
-          localStorage.setItem("comentarios", JSON.stringify(comentarios));
-          input.value = "";
-          renderComentarios();
-        }
-      }
-
-      function renderComentarios() {
-        const lista = document.getElementById("lista-comentarios");
-        lista.innerHTML = "";
-        let comentarios = JSON.parse(localStorage.getItem("comentarios")) || [];
-        comentarios.forEach(c => {
-          const li = document.createElement("li");
-          li.className = "list-group-item";
-          li.textContent = c;
-          lista.appendChild(li);
-        });
-      }
-      window.addEventListener("load", renderComentarios);
-    </script>
-  </body>
-  </html>
+                  // ======= Ranking com medalhas =======
+                  const artilheiros = [
+                    { nome: "Barou", gols: 7 },
+                    { nome: "Rin", gols: 7 },
+                    { nome: "Bachira", gols: 5 },
+                    { nome: "Isagi", gols: 4 },
+                    { nome: "Shidou", gols: 3 }
+                  ];
+                  const ranking = document.getElementById("ranking-artilheiros");
+                  artilheiros
+                    .sort((a, b) => b.gols - a.gols)
+                    .forEach((jogador, i) => {
+                      const li = document.createElement("li");
+                      let medalha = "";
+                      if (i === 0) medalha = "🥇";
+                      else if (i === 1) medalha = "🥈";
+                      else if (i === 2) medalha = "🥉";
+                      li.textContent = `${medalha} ${jogador.nome} — ${jogador.gols} gols`;
+                      ranking.appendChild(li);
+                    });
+                </script>
+              </body>
+              </html>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -378,229 +534,624 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Personagens - Blue Lock</title>
 
-  <!DOCTYPE html>
-  <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Personagens - Blue Lock</title>
+  <!-- Bootstrap / Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-    <!-- Bootstrap Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#eef4ff; --text:#0b1220; --muted:#52607a;
+      --card:#ffffff; --border:#e7edf8; --shadow:0 8px 24px rgba(2,6,23,.06);
+      --accent:#0d6efd;
+    }
+    body.dark-mode{
+      --bg:#0b1220; --text:#f3f6fc; --muted:#b8c4d9;
+      --card:#121a2b; --border:#1d2841; --shadow:0 8px 24px rgba(0,0,0,.35);
+      --accent:#60a5fa;
+    }
 
-    <style>
-      body {
-        font-family: 'Bebas Neue', sans-serif;
-        background-color: #e6f2ff;
-        margin: 0;
-        padding: 0;
-        transition: background-color 0.3s, color 0.3s;
-      }
+    body{
+      background:var(--bg);
+      color:var(--text);
+      font-family:'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      transition: background .25s ease, color .25s ease;
+    }
+    .navbar{
+      background: rgba(12, 23, 41, .92);
+      backdrop-filter: blur(6px);
+      border-bottom: 1px solid #0f203a;
+    }
+    .navbar-brand{ font-family:'Bebas Neue', cursive; letter-spacing:.6px; }
+    .theme-btn{ border-radius:999px; display:inline-flex; align-items:center; gap:.5rem; }
 
-      .dark-mode {
-        background-color: #121212;
-        color: #f5f5f5;
-      }
-      .dark-mode .navbar { background-color: #222 !important; }
-      .dark-mode .card { background-color: #1e1e1e; color: white; }
+    .page-header{
+      padding:32px 0; border-bottom:1px solid var(--border);
+      background: radial-gradient(900px 400px at -10% -10%, #8ec5ff33, transparent 60%);
+    }
 
-      .card { transition: transform 0.2s ease; }
-      .card:hover { transform: scale(1.03); }
-
-      .navbar { background-color: #0d6efd; }
-    </style>
-  </head>
-  <body>
-    <!-- NAVBAR -->
-    <nav class="navbar navbar-dark px-3">
-      <span class="navbar-brand"><i class="bi bi-people"></i> Personagens Blue Lock</span>
-      <div>
-        <a href="index.html" class="btn btn-outline-light">🏠 Voltar</a>
-        <button class="btn btn-outline-light" onclick="document.body.classList.toggle('dark-mode')">
-          <i class="bi bi-moon-stars"></i> Tema
-        </button>
-      </div>
-    </nav>
-
-    <div class="container my-4">
-      <h1 class="text-center mb-4">Personagens</h1>
-      <div class="row g-4">
-
-        <!-- Isagi -->
-        <div class="col-md-4">
-          <div class="card h-100">
-            <img src="https://static.wikia.nocookie.net/bluelock/images/3/39/Yoichi_Isagi.png" class="card-img-top" alt="Isagi Yoichi">
-            <div class="card-body">
-              <h5 class="card-title">Isagi Yoichi</h5>
-              <p><b>Posição:</b> Atacante</p>
-              <p><b>Habilidade:</b> Visão de jogo, instinto de ataque</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Nagi -->
-        <div class="col-md-4">
-          <div class="card h-100">
-            <img src="https://i.pinimg.com/736x/5c/8a/f0/5c8af0cf5485bc8d9dbf4ab7eafdec2a.jpg" class="card-img-top" alt="Seishiro Nagi">
-            <div class="card-body">
-              <h5 class="card-title">Seishiro Nagi</h5>
-              <p><b>Posição:</b> Atacante</p>
-              <p><b>Habilidade:</b> Domínio absurdo e criatividade</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Rin -->
-        <div class="col-md-4">
-          <div class="card h-100">
-            <img src="https://i.pinimg.com/736x/fd/ae/c5/fdaec54d2f60d6a5969f940faafdb729.jpg" class="card-img-top" alt="Rin Itoshi">
-            <div class="card-body">
-              <h5 class="card-title">Rin Itoshi</h5>
-              <p><b>Posição:</b> Atacante</p>
-              <p><b>Habilidade:</b> Técnica precisa, chute poderoso</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Bachira -->
-        <div class="col-md-4">
-          <div class="card h-100">
-            <img src="https://ae01.alicdn.com/kf/S0d5569e6fa7947cfbe36bce867435ce3A.jpg_640x640q90.jpg" class="card-img-top" alt="Bachira Meguru">
-            <div class="card-body">
-              <h5 class="card-title">Bachira Meguru</h5>
-              <p><b>Posição:</b> Atacante</p>
-              <p><b>Habilidade:</b> Drible criativo e imprevisível</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Reo -->
-        <div class="col-md-4">
-          <div class="card h-100">
-            <img src="https://i.redd.it/iiulgt28whia1.jpg" class="card-img-top" alt="Reo Mikage">
-            <div class="card-body">
-              <h5 class="card-title">Reo Mikage</h5>
-              <p><b>Posição:</b> Meio-campista</p>
-              <p><b>Habilidade:</b> Versatilidade e adaptação rápida</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Barou -->
-        <div class="col-md-4">
-          <div class="card h-100">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRY6nRgg25H9cKrPNDqWPE1YZPew6XMqKKNlvr9iGYyOPU1NaGF4-UPNDqGnDXNTVPubXQ" class="card-img-top" alt="Shoei Barou">
-            <div class="card-body">
-              <h5 class="card-title">Shoei Barou</h5>
-              <p><b>Posição:</b> Atacante</p>
-              <p><b>Habilidade:</b> Força física e chutes potentes</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Shidou -->
-        <div class="col-md-4">
-          <div class="card h-100">
-            <img src="https://i.redd.it/ppvhnk26a6t61.jpg" class="card-img-top" alt="Ryusei Shidou">
-            <div class="card-body">
-              <h5 class="card-title">Ryusei Shidou</h5>
-              <p><b>Posição:</b> Atacante</p>
-              <p><b>Habilidade:</b> Estilo agressivo e finalização selvagem</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Sae -->
-        <div class="col-md-4">
-          <div class="card h-100">
-            <img src="https://i.pinimg.com/736x/0c/4b/d7/0c4bd79cb1c7599a876838c9ceeedf78.jpg" class="card-img-top" alt="Sae Itoshi">
-            <div class="card-body">
-              <h5 class="card-title">Sae Itoshi</h5>
-              <p><b>Posição:</b> Meio-campista</p>
-              <p><b>Habilidade:</b> Maestro do jogo, passes de classe mundial</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Kaiser -->
-        <div class="col-md-4">
-          <div class="card h-100">
-            <img src="https://i.pinimg.com/736x/bb/6b/4e/bb6b4e2eea28199dff3ebd35fec4df75.jpg" class="card-img-top" alt="Michael Kaiser">
-            <div class="card-body">
-              <h5 class="card-title">Michael Kaiser</h5>
-              <p><b>Posição:</b> Atacante</p>
-              <p><b>Habilidade:</b> Finalização letal e aura dominante</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Lavinho -->
-        <div class="col-md-4">
-          <div class="card h-100">
-            <img src="https://i.pinimg.com/736x/5a/e3/51/5ae35163d8c5a0d94b752281155633c1.jpg" class="card-img-top" alt="Lavinho">
-            <div class="card-body">
-              <h5 class="card-title">Lavinho</h5>
-              <p><b>Posição:</b> Atacante</p>
-              <p><b>Habilidade:</b> Dribles extravagantes e estilo artístico</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Noel Noa -->
-        <div class="col-md-4">
-          <div class="card h-100">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvZ1SSa2W_25XKM845pbY8nv7z4yFwF1gFpA" class="card-img-top" alt="Noel Noa">
-            <div class="card-body">
-              <h5 class="card-title">Noel Noa</h5>
-              <p><b>Posição:</b> Atacante</p>
-              <p><b>Habilidade:</b> O melhor do mundo, completo em todos os aspectos</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Chigiri -->
-        <div class="col-md-4">
-          <div class="card h-100">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtOaUhkcyAyeNHEQYW1SJarwR9cEhatpMi4lIXb9466F4dEtF4261zNVXbdc6m4wxRQvo" class="card-img-top" alt="Chigiri Hyoma">
-            <div class="card-body">
-              <h5 class="card-title">Chigiri Hyoma</h5>
-              <p><b>Posição:</b> Atacante</p>
-              <p><b>Habilidade:</b> Velocidade extrema e contra-ataque mortal</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Aiku -->
-        <div class="col-md-4">
-          <div class="card h-100">
-            <img src="https://pbs.twimg.com/media/FwodLklaQAEjUdl?format=jpg&name=large" class="card-img-top" alt="Oliver Aiku">
-            <div class="card-body">
-              <h5 class="card-title">Oliver Aiku</h5>
-              <p><b>Posição:</b> Zagueiro</p>
-              <p><b>Habilidade:</b> Defesa sólida e liderança</p>
-            </div>
-          </div>
-        </div>
-
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px,1fr));
+      gap:18px;
+    }
+    .card.character{
+      background:var(--card); border:1px solid var(--border);
+      border-radius:16px; box-shadow:var(--shadow);
+      overflow:hidden; transition: transform .15s ease, box-shadow .25s ease;
+    }
+    .card.character:hover{ transform: translateY(-4px); }
+    .card.character img{
+      width:100%; height:280px; object-fit:cover;
+      background:#0b1220;
+    }
+    .card.character .info{ padding:14px 14px 16px; }
+    .card.character h2{
+      font-family:'Bebas Neue', cursive; letter-spacing:.5px;
+      font-size:1.45rem; margin:0 0 4px;
+    }
+    .badge-role{
+      background: rgba(13,110,253,.1);
+      color: var(--accent);
+      border:1px solid rgba(13,110,253,.2);
+      border-radius:999px; padding:.15rem .5rem; font-size:.8rem; font-weight:600;
+    }
+    .muted{ color: var(--muted); font-size:.95rem; }
+    footer{ color:var(--muted); border-top:1px solid var(--border); padding:24px 0; margin-top:36px; text-align:center; }
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <nav class="navbar navbar-dark sticky-top">
+    <div class="container d-flex align-items-center justify-content-between py-2">
+      <a class="navbar-brand text-white" href="#"><i class="bi bi-people-fill me-1"></i> Personagens Blue Lock</a>
+      <div class="d-flex gap-2">
+        <a href="index.html" class="btn btn-outline-light btn-sm">🏠 Voltar</a>
+        <button id="themeToggle" class="btn btn-outline-light btn-sm theme-btn"><i class="bi bi-moon-stars"></i> <span>Modo escuro</span></button>
       </div>
     </div>
-    <!-- Lorenzo -->
-    <div class="col-md-4"
-        <div class="card h-100">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXdrhmzcyIrrEu77dm5qWX71BHetIGO7NCqg&s" class="card-img-top" alt="Lorenzo">
-          <div class="card-body">
-            <h5 class="card-title">Don Lorenzo</h5>
-            <p><b>Posição:</b> Zagueiro </p>
-            <p><b>Habilidade:</b> Zumbi que sempre volta e Marcação firme </p>
-          </div>
+  </nav>
+
+  <!-- HEADER -->
+  <section class="page-header">
+    <div class="container">
+      <h1 class="mb-1" style="font-family:'Bebas Neue', cursive; letter-spacing:.5px;">Galeria de Personagens</h1>
+      <p class="muted mb-0">Personagens do mangá .</p>
+    </div>
+  </section>
+
+  <!-- GRID -->
+  <main class="container my-4">
+    <div class="grid">
+
+      <!-- Isagi (nova imagem) -->
+      <div class="card character">
+        <img src="https://preview.redd.it/the-isagi-hat-trick-theory-is-still-alive-and-well-v0-y586ebgh82zc1.jpeg?width=640&crop=smart&auto=webp&s=260af70396a82443358ba9f14b961fd7afca1422" alt="Isagi Yoichi">
+        <div class="info">
+          <h2>Isagi Yoichi</h2>
+          <span class="badge-role">Atacante</span>
+          <p class="muted mt-2">Meta Vision, Chute direto e Voelios de armas duplas</p>
         </div>
       </div>
-            
-     </div>
-     </div>
-  </body>
-  </html>
+
+      <!-- Nagi -->
+      <div class="card character">
+        <img src="https://i.pinimg.com/736x/5c/8a/f0/5c8af0cf5485bc8d9dbf4ab7eafdec2a.jpg" alt="Seishiro Nagi">
+        <div class="info">
+          <h2>Seishiro Nagi</h2>
+          <span class="badge-role">Atacante</span>
+          <p class="muted mt-2">Domínio absurdo, Passes impróvaveis  e 5 Voleios seguidos .</p>
+        </div>
+      </div>
+
+      <!-- Rin -->
+      <div class="card character">
+        <img src="https://i.pinimg.com/736x/fd/ae/c5/fdaec54d2f60d6a5969f940faafdb729.jpg" alt="Rin Itoshi">
+        <div class="info">
+          <h2>Rin Itoshi</h2>
+          <span class="badge-role">Atacante</span>
+          <p class="muted mt-2">Meta Vision,Chute de trivela e Fluxo de destruição.</p>
+        </div>
+      </div>
+
+      <!-- Bachira -->
+      <div class="card character">
+        <img src="https://ae01.alicdn.com/kf/S0d5569e6fa7947cfbe36bce867435ce3A.jpg_640x640q90.jpg" alt="Bachira Meguru">
+        <div class="info">
+          <h2>Bachira Meguru</h2>
+          <span class="badge-role">Atacante</span>
+          <p class="muted mt-2">Drible monstro+ginga "Bachira Show Time".</p>
+        </div>
+      </div>
+
+      <!-- Reo -->
+      <div class="card character">
+        <img src="https://i.redd.it/iiulgt28whia1.jpg" alt="Reo Mikage">
+        <div class="info">
+          <h2>Reo Mikage</h2>
+          <span class="badge-role">Meio-campista</span>
+          <p class="muted mt-2">Capacidade de copiar qualquer jogador com 99% de precisão.</p>
+        </div>
+      </div>
+
+      <!-- Barou -->
+      <div class="card character">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRY6nRgg25H9cKrPNDqWPE1YZPew6XMqKKNlvr9iGYyOPU1NaGF4-UPNDqGnDXNTVPubXQ&usqp=CAU" alt="Shoei Barou">
+        <div class="info">
+          <h2>Shoei Barou</h2>
+          <span class="badge-role">Atacante</span>
+          <p class="muted mt-2">Olho do Predador com futebol Vilão com chute de 29 metros.</p>
+        </div>
+      </div>
+
+      <!-- Shidou -->
+      <div class="card character">
+        <img src="https://i.redd.it/ppvhnk26a6t61.jpg" alt="Ryusei Shidou">
+        <div class="info">
+          <h2>Ryusei Shidou</h2>
+          <span class="badge-role">Atacante</span>
+          <p class="muted mt-2">Chute de qualquer canto do campo e seu fluxo dragão com direito a gol de bicileta .</p>
+        </div>
+      </div>
+
+      <!-- Sae -->
+      <div class="card character">
+        <img src="https://i.redd.it/will-itoshi-sae-play-on-the-new-japan-u20-team-v0-fjtedpvzeyob1.jpg?width=1080&format=pjpg&auto=webp&s=976c84787ce59d969bdb2dc500d1dfc354e351c1" alt="Sae Itoshi">
+        <div class="info">
+          <h2>Sae Itoshi</h2>
+          <span class="badge-role">Meia/Atacante</span>
+          <p class="muted mt-2">Maestro do jogo com passes de nível mundial com fluxo destruindo lindamente seus oponentes .</p>
+        </div>
+      </div>
+
+      <!-- Kaiser -->
+      <div class="card character">
+        <img src="https://i.pinimg.com/736x/bb/6b/4e/bb6b4e2eea28199dff3ebd35fec4df75.jpg" alt="Michael Kaiser">
+        <div class="info">
+          <h2>Michael Kaiser</h2>
+          <span class="badge-role">Atacante</span>
+          <p class="muted mt-2">Kaiser Impact(Magnus), Meta vision e Olho do predador .</p>
+        </div>
+      </div>
+
+      <!-- Lavinho -->
+      <div class="card character">
+        <img src="https://i.pinimg.com/736x/5a/e3/51/5ae35163d8c5a0d94b752281155633c1.jpg" alt="Lavinho">
+        <div class="info">
+          <h2>Lavinho</h2>
+          <span class="badge-role">Atacante</span>
+          <p class="muted mt-2">Dribles extravagantes com ginga brasileira inspirado no neymar .</p>
+        </div>
+      </div>
+
+      <!-- Noel Noa -->
+      <div class="card character">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvZ1SSa2W_25XKM845pbY8nv7z4yFwF1gFpA&s" alt="Noel Noa">
+        <div class="info">
+          <h2>Noel Noa</h2>
+          <span class="badge-role">Atacante</span>
+          <p class="muted mt-2">Completo em todos os aspectos Número 1 melhor do mundo .</p>
+        </div>
+      </div>
+
+      <!-- Chigiri -->
+      <div class="card character">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtOaUhkcyAyeNHEQYW1SJarwR9cEhatpMi4lIXb9466F4dEtF4261zNVXbdc6m4wxRQvo&usqp=CAU" alt="Chigiri Hyoma">
+        <div class="info">
+          <h2>Chigiri Hyoma</h2>
+          <span class="badge-role">Atacante</span>
+          <p class="muted mt-2">Velocidade extrema que usa para sua zona de chute ideal, que é aproximadamente 44 graus para a esquerda, a 19 metros do gol conhecida como golden zone .</p>
+        </div>
+      </div>
+
+      <!-- Aiku -->
+      <div class="card character">
+        <img src="https://preview.redd.it/oliver-aiku-appreciation-v0-gg5td4a6auue1.jpg?width=640&crop=smart&auto=webp&s=685538be0bbe7a039d743a1e4a5d0fb6d7434ddf" alt="Oliver Aiku">
+        <div class="info">
+          <h2>Oliver Aiku</h2>
+          <span class="badge-role">Zagueiro</span>
+          <p class="muted mt-2">Liderança e leitura defensiva Combinado com Meta vision .</p>
+        </div>
+      </div>
+
+      <!-- Kunigami -->
+      <div class="card character">
+        <img src="https://i.redd.it/q4kycwt49lya1.jpg" alt="Kunigami Rensuke">
+        <div class="info">
+          <h2>Kunigami Rensuke</h2>
+          <span class="badge-role">Atacante</span>
+          <p class="muted mt-2">Físico, chute de média distância muito potente e físico no nível do Noa .</p>
+        </div>
+      </div>
+
+      <!-- Ness -->
+      <div class="card character">
+        <img src="https://preview.redd.it/ness-character-development-in-blue-lock-the-road-to-v0-h5ziphbdgioe1.jpg?width=736&format=pjpg&auto=webp&s=f5c62768889094743edf7b35883491ce15ccb9b8" alt="Ness">
+        <div class="info">
+          <h2>Alexis Ness</h2>
+          <span class="badge-role">Meia</span>
+          <p class="muted mt-2">Apoio e passes para o Kaiser.</p>
+        </div>
+      </div>
+
+      <!-- Charles -->
+      <div class="card character">
+        <img src="https://i.pinimg.com/736x/ec/02/ef/ec02ef6da0311d9e28458294254e1089.jpg" alt="Charles Chevalier">
+        <div class="info">
+          <h2>Charles Chevalier</h2>
+          <span class="badge-role">Meia/Atacante</span>
+          <p class="muted mt-2">Criatividade e passes milimétricos com sua imprevisibilidade e Travessuras no campo .</p>
+        </div>
+      </div>
+
+      <!-- Hiori -->
+      <div class="card character">
+        <img src="https://i.pinimg.com/736x/6c/a4/7b/6ca47bd03c069c25819c6272db76ec06.jpg" alt="Hiori Yo">
+        <div class="info">
+          <h2>Hiori Yo</h2>
+          <span class="badge-role">Meia</span>
+          <p class="muted mt-2">Passe cirúrgico e calma.</p>
+        </div>
+      </div>
+
+      <!-- Karasu -->
+      <div class="card character">
+        <img src="https://i.pinimg.com/736x/18/12/cf/1812cf64d35a6e0ae556f45477fe35b3.jpg" alt="Karasu Tabito">
+        <div class="info">
+          <h2>Karasu Tabito</h2>
+          <span class="badge-role">Meio/Defesa</span>
+          <p class="muted mt-2">Físico e interceptações Fluxo de Corvo .</p>
+        </div>
+      </div>
+
+      <!-- Otoya -->
+      <div class="card character">
+        <img src="https://64.media.tumblr.com/0d63cb105389df68c16cfd42dfe8f138/cb22c652a378cb7e-1f/s1280x1920/9a3424b630ed083bf16b8452ec0890e63c4bc8c6.png" alt="Otoya Eita">
+        <div class="info">
+          <h2>Otoya Eita</h2>
+          <span class="badge-role">Defesa/Volante</span>
+          <p class="muted mt-2">Marcação e mobilidade Ninja .</p>
+        </div>
+      </div>
+
+      <!-- Chris Prince -->
+      <div class="card character">
+        <img src="https://i.pinimg.com/736x/c8/92/cb/c892cb99ff30bc70d9daa3a92123ccf2.jpg" alt="Chris Prince">
+        <div class="info">
+          <h2>Chris Prince</h2>
+          <span class="badge-role">Treinador</span>
+          <p class="muted mt-2">Mentoria técnica britânica.</p>
+        </div>
+      </div>
+
+      <!-- Loki -->
+      <div class="card character">
+        <img src="https://preview.redd.it/julian-loki-is-so-cool-a-year-ago-i-wrote-a-letter-to-v0-97gumwlpayye1.jpeg?width=640&crop=smart&auto=webp&s=685aa01ccfda728fec3e05817343e634084ecfaf" alt="Julian Loki">
+        <div class="info">
+          <h2>Julian Loki</h2>
+          <span class="badge-role">Meia/Atacante</span>
+          <p class="muted mt-2">Distorção da Velocidade Divina e Passes Longos .</p>
+        </div>
+      </div>
+
+      <!-- Snuffy -->
+      <div class="card character">
+        <img src="https://i.pinimg.com/736x/f3/95/1b/f3951b909f16eab969cd28e2919fdded.jpg" alt="Marc Snuffy">
+        <div class="info">
+          <h2>Marc Snuffy</h2>
+          <span class="badge-role">Treinador</span>
+          <p class="muted mt-2">MetaVision  e disciplina.</p>
+        </div>
+      </div>
+
+      <!-- Yukimiya -->
+      <div class="card character">
+        <img src="https://preview.redd.it/yukimiya-colored-panel-v0-uoihu8n6z42d1.png?auto=webp&s=7ff661ca353f7d3129ac7ba2ab666ef6a7a01ec6" alt="Ken Yukimiya">
+        <div class="info">
+          <h2>Ken Yukimiya</h2>
+          <span class="badge-role">Atacante</span>
+          <p class="muted mt-2">Dribles de ruas estilo Freestyle .</p>
+        </div>
+      </div>
+
+      <!-- Gagamaru -->
+      <div class="card character">
+        <img src="https://i.pinimg.com/236x/6f/47/38/6f47386a56845983dab781bdf73ef339.jpg" alt="Gin Gagamaru">
+        <div class="info">
+          <h2>Gin Gagamaru</h2>
+          <span class="badge-role">Goleiro/Atacante</span>
+          <p class="muted mt-2">Reflexo e elasticidade.</p>
+        </div>
+      </div>
+
+      <!-- Kurona -->
+      <div class="card character">
+        <img src="https://i.redd.it/rkv2ylnixwra1.png" alt="Ranze Kurona">
+        <div class="info">
+          <h2>Ranze Kurona</h2>
+          <span class="badge-role">Meio-campista</span>
+          <p class="muted mt-2">Apoio ofensivo e tabela.</p>
+        </div>
+      </div>
+
+      <!-- Lorenzo -->
+      <div class="card character">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRikTCwgfgnL0LhoIUjgdYI5zMhPavIursrjM-igEXsrtLBHaYhnH9VtEvwy9r4i9Ne4mc&usqp=CAU" alt="Don Lorenzo">
+        <div class="info">
+          <h2>Don Lorenzo</h2>
+          <span class="badge-role">Zagueiro</span>
+          <p class="muted mt-2">Devorador de Ás com uma defesa incrível.</p>
+        </div>
+      </div>
+
+      <!-- Bunny -->
+      <div class="card character">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNh-E7Vl0AKhJpEkdbw29xa-rhXRxgh66Dxg&s" alt="Bunny">
+        <div class="info">
+          <h2>Bunny</h2>
+          <span class="badge-role">—</span>
+          <p class="muted mt-2">???.</p>
+        </div>
+      </div>
+
+      <!-- Raichi -->
+      <div class="card character">
+        <img src="https://i.redd.it/raichi-deserves-to-score-v0-aa5gxzyl1gqb1.jpg?width=1399&format=pjpg&auto=webp&s=0989ce885b9abf82927b2fc2b58d08eaef7a4baa" alt="Raichi Jingo">
+        <div class="info">
+          <h2>Raichi Jingo</h2>
+          <span class="badge-role">Volante</span>
+          <p class="muted mt-2">Intensidade e marcação.</p>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <small>Voltar para <a href="index.html">Página inicial</a></small>
+    </div>
+  </footer>
+
+  <script>
+    // Tema com persistência (mesma lógica do index)
+    const themeBtn = document.getElementById('themeToggle');
+    const themeLabel = themeBtn.querySelector('span');
+    const stored = localStorage.getItem('bluelock-theme');
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    function applyTheme(mode){
+      document.body.classList.toggle('dark-mode', mode === 'dark');
+      themeLabel.textContent = mode === 'dark' ? 'Modo claro' : 'Modo escuro';
+      themeBtn.firstElementChild.className = mode === 'dark' ? 'bi bi-sun' : 'bi bi-moon-stars';
+      localStorage.setItem('bluelock-theme', mode);
+    }
+    applyTheme(stored ? stored : (prefersDark ? 'dark' : 'light'));
+    themeBtn.addEventListener('click', ()=>{
+      const now = document.body.classList.contains('dark-mode') ? 'light' : 'dark';
+      applyTheme(now);
+    });
+  </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quiz Blue Lock</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {
+      background-color: #f0f8ff;
+      font-family: Arial, sans-serif;
+    }
+    .quiz-container {
+      max-width: 800px;
+      margin: 50px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    .quiz-question {
+      font-size: 1.4rem;
+      margin-bottom: 20px;
+    }
+    .quiz-answer {
+      margin-bottom: 10px;
+    }
+    .feedback {
+      font-weight: bold;
+      margin-top: 15px;
+    }
+    .hidden {
+      display: none;
+    }
+    img.quiz-image {
+      max-width: 100%;
+      margin-bottom: 20px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz-container">
+    <h2 class="text-center mb-4">Quiz Blue Lock ⚽</h2>
+
+    <!-- Botão de iniciar quiz -->
+    <button id="start-btn" class="btn btn-success mb-4">Iniciar Quiz</button>
+
+    <div id="quiz" class="hidden">
+      <div id="image-container"></div>
+      <div id="question" class="quiz-question"></div>
+      <div id="answers" class="mb-3"></div>
+      <div id="feedback" class="feedback"></div>
+      <button id="next-btn" class="btn btn-primary mt-3 hidden">Próxima Pergunta</button>
+    </div>
+
+    <div id="result" class="text-center mt-4 fw-bold fs-4"></div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        question: "Quem foi o primeiro jogador a marcar um gol na Liga Neo egoísta?",
+        answers: [
+          { text: "Isagi Yoichi", correct: false },
+          { text: "Kaiser", correct: true }
+        ],
+        image: "https://i.ytimg.com/vi/U0r0EkfLanU/maxresdefault.jpg" 
+      },
+      {
+        question: "Qual é a principal habilidade de Nagi Seishiro?",
+        answers: [
+          { text: "Velocidade extrema", correct: false },
+          { text: "Domínio e controle de bola", correct: true }
+        ],
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSs489-1-Bdij8SWGl52qAN-KjM1dlpeEU6vH9PDV2hOasJEdApGcZH-Dtig_3yiULLQrk&usqp=CAU"
+      },
+      {
+        question: "Quem é o criador e responsável pelo projeto Blue Lock?",
+        answers: [
+          { text: "Anri Teieri", correct: false },
+          { text: "Jinpachi Ego", correct: true }
+        ],
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUTt788ifvZWpuDiI80zHCictB0rJFuX76xvJ9ITWkUU6jNXbLa0quypn6BhFxN9bsIMk&usqp=CAU"
+      },
+      {
+        question: "Qual era a posição original de Isagi antes de entrar no Blue Lock?",
+        answers: [
+          { text: "Meio Campista ", correct: false },
+          { text: "Atacante", correct: true }
+        ],
+        image: "https://pt.quizur.com/_image?href=https://img.quizur.com/f/img641b65df604b74.77427714.jpg?lastEdited=1679517157&w=600&h=600&f=webp"
+      },
+      {
+        question: "Qual jogador é conhecido como 'Rei' dentro do Blue Lock?",
+        answers: [
+          { text: "Barou Shouei", correct: true },
+          { text: "Ryusei Shidou", correct: false }
+        ],
+        image: "https://i.ytimg.com/vi/m-f6KCwXAtU/hq720.jpg"
+      },
+      {
+        question: "Qual dupla se destacou por sua química surpreendente no início do Blue Lock?",
+        answers: [
+          { text: "Isagi e Nagi", correct: false },
+          { text: "Isagi e Bachira", correct: true }
+        ],
+        image: "https://i.redd.it/wnzpa22i38p61.jpg"
+      },
+      {
+        question: "Qual o objetivo principal do projeto Blue Lock?",
+        answers: [
+          { text: "Formar uma defesa impenetrável para o Japão", correct: false },
+          { text: "Criar o melhor atacante do mundo", correct: true }
+        ],
+        image: "https://m.media-amazon.com/images/S/pv-target-images/cd6204c81c4547dec4904bc2575d3cdd77abaa462857336faf44abc5eba89ef5.png"
+      },
+      {
+        question: "Porque Kaiser e Isagi se uniram na partida contra PXG ",
+        answers: [
+          { text: "Para derrotar os gênios e ganharem a partida ", correct: true },
+          { text: "Para marcar um gol juntos ", correct: false }
+        ],
+        image: "https://i.redd.it/gzk8xifyf79f1.jpeg"
+      },
+      {
+        question: "Quem venceu a partida Bastard Munique vs FC Barcha (Partida 1)?",
+        answers: [
+          { text: "Bastard Munique", correct: true },
+          { text: "FC Barcha", correct: false }
+        ],
+        image: "https://i.ytimg.com/vi/vgS1DUn3LWs/maxresdefault.jpg"
+      },
+      {
+        question: "Qual personagem é chamado de 'Zumbi ' e atua como zagueiro?",
+        answers: [
+          { text: "Don Lorenzo", correct: true },
+          { text: "Aiku", correct: false }
+        ],
+        image: "https://i.ytimg.com/vi/5Dn63lc7O20/hq720.jpg"
+      }
+    ];
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+
+    const questionEl = document.getElementById("question");
+    const answersEl = document.getElementById("answers");
+    const feedbackEl = document.getElementById("feedback");
+    const nextBtn = document.getElementById("next-btn");
+    const resultEl = document.getElementById("result");
+    const imageContainer = document.getElementById("image-container");
+    const quizContainer = document.getElementById("quiz");
+    const startBtn = document.getElementById("start-btn");
+
+    // Iniciar quiz ao clicar no botão
+    startBtn.addEventListener("click", () => {
+      startBtn.classList.add("hidden");  // Esconde o botão
+      quizContainer.classList.remove("hidden");  // Mostra o quiz
+      showQuestion();
+    });
+
+    function showQuestion() {
+      const currentQuestion = questions[currentQuestionIndex];
+      questionEl.textContent = `Pergunta ${currentQuestionIndex + 1}: ${currentQuestion.question}`;
+      answersEl.innerHTML = "";
+      feedbackEl.textContent = "";
+      nextBtn.classList.add("hidden");
+
+      imageContainer.innerHTML = "";
+      if (currentQuestion.image) {
+        const img = document.createElement("img");
+        img.src = currentQuestion.image;
+        img.alt = "Imagem da pergunta";
+        img.classList.add("quiz-image");
+        imageContainer.appendChild(img);
+      }
+
+      currentQuestion.answers.forEach(answer => {
+        const btn = document.createElement("button");
+        btn.textContent = answer.text;
+        btn.classList.add("btn", "btn-outline-primary", "w-100", "quiz-answer");
+        btn.onclick = () => selectAnswer(answer.correct, btn);
+        answersEl.appendChild(btn);
+      });
+    }
+
+    function selectAnswer(correct, button) {
+      const allButtons = answersEl.querySelectorAll("button");
+      allButtons.forEach(btn => btn.disabled = true);
+
+      if (correct) {
+        button.classList.replace("btn-outline-primary", "btn-success");
+        feedbackEl.textContent = "✅ Resposta correta!";
+        score++;
+      } else {
+        button.classList.replace("btn-outline-primary", "btn-danger");
+        feedbackEl.textContent = "❌ Resposta errada!";
+      }
+
+      nextBtn.classList.remove("hidden");
+    }
+
+    nextBtn.addEventListener("click", () => {
+      currentQuestionIndex++;
+      if (currentQuestionIndex < questions.length) {
+        showQuestion();
+      } else {
+        showResult();
+      }
+    });
+
+    function showResult() {
+      quizContainer.innerHTML = "";
+      resultEl.innerHTML = `Você acertou <strong>${score}</strong> de <strong>${questions.length}</strong> perguntas.`;
+    }
+  </script>
+</body>
+</html>
